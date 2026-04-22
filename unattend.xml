@@ -1,12 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <unattend xmlns="urn:schemas-microsoft-com:unattend">
-
-  <!-- ============================================================
-       unattend.xml MINIMALIS untuk Windows Server 2016/2019/2022
-       Fungsi: HANYA skip password prompt saat OOBE setelah Sysprep
-       Password akan diganti oleh SetupComplete.bat via alpine.config
-       ============================================================ -->
-
   <settings pass="oobeSystem">
     <component name="Microsoft-Windows-Shell-Setup"
                processorArchitecture="amd64"
@@ -14,9 +7,7 @@
                language="neutral"
                versionScope="nonSxS"
                xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State">
-
-      <OOBE>
-        <!-- Skip semua wizard OOBE -->
+      <OOBE>      
         <HideEULAPage>true</HideEULAPage>
         <HideLocalAccountScreen>true</HideLocalAccountScreen>
         <HideOEMRegistrationScreen>true</HideOEMRegistrationScreen>
@@ -26,18 +17,12 @@
         <SkipMachineOOBE>true</SkipMachineOOBE>
         <ProtectYourPC>3</ProtectYourPC>
       </OOBE>
-
-      <!-- Set password sementara untuk Administrator -->
-      <!-- Password ini akan DIGANTI oleh SetupComplete.bat -->
       <UserAccounts>
         <AdministratorPassword>
           <Value>TempSetup@123</Value>
           <PlainText>true</PlainText>
         </AdministratorPassword>
       </UserAccounts>
-
-      <!-- Auto login dengan password sementara -->
-      <!-- Agar Startup folder bisa jalan tanpa input manual -->
       <AutoLogon>
         <Password>
           <Value>TempSetup@123</Value>
@@ -48,8 +33,13 @@
         <Username>Administrator</Username>
         <Domain>.</Domain>
       </AutoLogon>
-
+      <FirstLogonCommands>
+        <SynchronousCommand wcm:action="add">
+          <CommandLine>reg add "HKLM\SOFTWARE\Microsoft\ServerManager" /v DoNotOpenServerManagerAtLogon /t REG_DWORD /d 1 /f</CommandLine>
+          <Description>Disable Server Manager at logon</Description>
+          <Order>1</Order>
+        </SynchronousCommand>
+      </FirstLogonCommands>
     </component>
   </settings>
-
 </unattend>
