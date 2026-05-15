@@ -136,9 +136,9 @@ case $choice in
         ;;
     16)
         # Windows 10 ori
-        img_file="windows10.img"
-        iso_link="https://software.download.prss.microsoft.com/dbazure/Win10_22H2_English_x64v1.iso?t=7be60617-7edb-4901-97a3-5e7ed159e070&P1=1739875810&P2=601&P3=2&P4=pqMjluJN1JcYInNMTAMPpkTKAcRAYQrNZoaow7Ur7%2fHtdRtH9oKsAsRGXreI9aDCY8me2qWFnXc2SEy1PanjTntFw5JMo136jhAZDYSCU6m0PpaVpeKaS4bpwkR%2fmlStV2IyQXa%2fLe2lO%2b8UqrBoS1JRlinmkyZER7iofQYNmiRKh24fQlTrHy3nUTCKcPDLFU%2bj5LvtvlvbCwNHVIb%2fRANaNBifFHhyncWqm7uKPOIai3vItFxDNId8lXrbnr%2fhd5z9pT4L%2fs%2f90eZ9Viw39BptUDqB23S8UlDAxj0eUsaN8pgVGnDAoi1FFSZlrGzGJZyIIyd65cDCBGYK%2ftl8Zg%3d%3d"
-        iso_file="windows10.iso"
+        img_file="windows10atlas.img"
+        iso_link="https://archive.org/download/atlasos-20h2/Atlas_v0.5.2.iso"
+        iso_file="windows10atlas.iso"
         ;;
     17)
         # Windows XP
@@ -173,7 +173,7 @@ esac
 echo "Selected Windows Server version: $img_file"
 
 # Create a raw image file with the chosen name
-qemu-img create -f raw "$img_file" 30G
+qemu-img create -f raw "$img_file" 7G
 
 echo "Image file $img_file created successfully."
 
